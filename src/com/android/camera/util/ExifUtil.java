@@ -55,66 +55,18 @@ public class ExifUtil {
      * @param location optionally a location that should be added to the EXIF.
      */
     public void populateExif(Optional<TaskImageContainer.TaskImage> image,
-                             Optional<CaptureResultProxy> captureResult,
-                             Optional<Location> location) {
+                             Optional<CaptureResultProxy> captureResult) {
         addExifVersionToExif();
-        addTimestampToExif();
-        addMakeAndModelToExif();
         if (image.isPresent()) {
             addImageDataToExif(image.get());
         }
         if (captureResult.isPresent()) {
             addCaptureResultToExif(captureResult.get());
         }
-        if (location.isPresent()) {
-            addLocationToExif(location.get());
-        }
-    }
-
-    /**
-     * Adds the given location to the EXIF object.
-     *
-     * @param location The location to add.
-     */
-    public void addLocationToExif(Location location) {
-        final Long ALTITUDE_PRECISION = 1L; // GPS altitude isn't particularly accurate (determined empirically)
-
-        mExif.addGpsTags(location.getLatitude(), location.getLongitude());
-        mExif.addGpsDateTimeStampTag(location.getTime());
-
-        if (location.hasAltitude()) {
-            double altitude = location.getAltitude();
-            addExifTag(ExifInterface.TAG_GPS_ALTITUDE, rational(altitude, ALTITUDE_PRECISION));
-            short altitudeRef = altitude < 0 ? ExifInterface.GpsAltitudeRef.SEA_LEVEL_NEGATIVE
-                    : ExifInterface.GpsAltitudeRef.SEA_LEVEL;
-            addExifTag(ExifInterface.TAG_GPS_ALTITUDE_REF, altitudeRef);
-        }
     }
 
     private void addExifVersionToExif() {
         addExifTag(ExifInterface.TAG_EXIF_VERSION, ExifInterface.EXIF_VERSION);
-    }
-
-    private void addTimestampToExif() {
-        final Long MS_TO_S = 1000L; // Milliseconds per second
-        final String subSecondFormat = "000";
-
-        Long timestampMs = System.currentTimeMillis();
-        TimeZone timezone = Calendar.getInstance().getTimeZone();
-        mExif.addDateTimeStampTag(ExifInterface.TAG_DATE_TIME, timestampMs, timezone);
-        mExif.addDateTimeStampTag(ExifInterface.TAG_DATE_TIME_DIGITIZED, timestampMs, timezone);
-        mExif.addDateTimeStampTag(ExifInterface.TAG_DATE_TIME_ORIGINAL, timestampMs, timezone);
-
-        Long subSeconds = timestampMs % MS_TO_S;
-        String subSecondsString = new DecimalFormat(subSecondFormat).format(subSeconds);
-        addExifTag(ExifInterface.TAG_SUB_SEC_TIME, subSecondsString);
-        addExifTag(ExifInterface.TAG_SUB_SEC_TIME_ORIGINAL, subSecondsString);
-        addExifTag(ExifInterface.TAG_SUB_SEC_TIME_DIGITIZED, subSecondsString);
-    }
-
-    private void addMakeAndModelToExif() {
-        addExifTag(ExifInterface.TAG_MAKE, Build.MANUFACTURER);
-        addExifTag(ExifInterface.TAG_MODEL, Build.MODEL);
     }
 
     private void addImageDataToExif(TaskImageContainer.TaskImage image) {
