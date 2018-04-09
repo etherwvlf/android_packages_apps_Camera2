@@ -17,7 +17,6 @@
 package com.android.camera.captureintent;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.net.Uri;
 
 import com.android.camera.debug.Log;
@@ -73,16 +72,6 @@ public class CaptureIntentSession implements CaptureSession {
     @Override
     public String getTitle() {
         return mTitle;
-    }
-
-    @Override
-    public Location getLocation() {
-        return mLocation;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        mLocation = location;
     }
 
     // TODO: Support progress in the future once HDR is enabled for capture intent.
