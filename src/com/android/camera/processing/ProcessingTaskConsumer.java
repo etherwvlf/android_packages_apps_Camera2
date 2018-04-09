@@ -17,8 +17,6 @@
 package com.android.camera.processing;
 
 import android.content.Context;
-import android.location.Location;
-
 import com.android.camera.app.CameraServices;
 import com.android.camera.session.CaptureSession;
 
