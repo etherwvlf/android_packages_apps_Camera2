@@ -33,7 +33,6 @@ public class PhotoDataFactory {
         long id = c.getLong(PhotoDataQuery.COL_ID);
         String title = c.getString(PhotoDataQuery.COL_TITLE);
         String mimeType = c.getString(PhotoDataQuery.COL_MIME_TYPE);
-        long dateTakenInMilliSeconds = c.getLong(PhotoDataQuery.COL_DATE_TAKEN);
         long dateModifiedInSeconds = c.getLong(PhotoDataQuery.COL_DATE_MODIFIED);
         Date lastModifiedDate = new Date(dateModifiedInSeconds * 1000);
 
@@ -62,9 +61,6 @@ public class PhotoDataFactory {
         }
 
         long sizeInBytes = c.getLong(PhotoDataQuery.COL_SIZE);
-        double latitude = c.getDouble(PhotoDataQuery.COL_LATITUDE);
-        double longitude = c.getDouble(PhotoDataQuery.COL_LONGITUDE);
-        Location location = Location.from(latitude, longitude);
 
         Uri uri = PhotoDataQuery.CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
 
