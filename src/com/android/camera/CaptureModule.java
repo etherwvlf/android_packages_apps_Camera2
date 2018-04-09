@@ -540,8 +540,7 @@ public class CaptureModule extends CameraModule implements
         // TODO: This should really not use getExternalCacheDir and instead use
         // the SessionStorage API. Need to sync with gcam if that's OK.
         PhotoCaptureParameters params = new PhotoCaptureParameters(
-                session.getTitle(), orientation, session.getLocation(),
-                mContext.getExternalCacheDir(), this, mPictureSaverCallback,
+                session.getTitle(), orientation, mContext.getExternalCacheDir(), this, mPictureSaverCallback,
                 mHeadingSensor.getCurrentHeading(), mZoomValue, 0);
         decorateSessionAtCaptureTime(session);
         mCamera.takePicture(params, session);
@@ -556,7 +555,7 @@ public class CaptureModule extends CameraModule implements
         Location location = mLocationManager.getCurrentLocation();
         String title = CameraUtil.instance().createJpegName(sessionTime);
         CaptureSession session = getServices().getCaptureSessionManager()
-                .createNewSession(title, sessionTime, location);
+                .createNewSession(title, sessionTime);
 
         session.startEmpty(new CaptureStats(mHdrPlusEnabled),
               new Size((int) mPreviewArea.width(), (int) mPreviewArea.height()));
@@ -568,7 +567,7 @@ public class CaptureModule extends CameraModule implements
         Location location = mLocationManager.getCurrentLocation();
         String title = CameraUtil.instance().createJpegName(sessionTime);
         CaptureSession session = getServices().getCaptureSessionManager()
-              .createNewSession(title, sessionTime, location);
+              .createNewSession(title, sessionTime);
 
         session.startEmpty(null,
               new Size((int) mPreviewArea.width(), (int) mPreviewArea.height()));
