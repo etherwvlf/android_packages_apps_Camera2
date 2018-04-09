@@ -42,8 +42,7 @@ public class FilmstripItemData {
     private final Size mDimensions;
     private final long mSizeInBytes;
     private final int mOrientation;
-    private final Location mLocation;
-
+    
     public FilmstripItemData(
           long contentId,
           String title,
@@ -53,8 +52,7 @@ public class FilmstripItemData {
           Uri uri,
           Size dimensions,
           long sizeInBytes,
-          int orientation,
-          Location location) {
+          int orientation) {
         mContentId = contentId;
         mTitle = title;
         mMimeType = mimeType;
@@ -64,7 +62,6 @@ public class FilmstripItemData {
         mDimensions = dimensions;
         mSizeInBytes = sizeInBytes;
         mOrientation = orientation;
-        mLocation = location;
     }
 
     public long getContentId() {
@@ -84,14 +81,6 @@ public class FilmstripItemData {
      */
     public String getMimeType() {
         return mMimeType;
-    }
-
-    /**
-     * Gets the date when this item was created. The returned date may be used
-     * for sorting.
-     */
-    public Date getCreationDate() {
-        return mCreationDate;
     }
 
     /**
@@ -138,10 +127,6 @@ public class FilmstripItemData {
      */
     /* package */ int getOrientation() {
         return mOrientation;
-    }
-
-    public Location getLocation() {
-        return mLocation;
     }
 
     @Override
@@ -200,7 +185,7 @@ public class FilmstripItemData {
                   mUri,
                   mDimensions,
                   mSizeInBytes,
-                  mOrientation,
+                  mOrientation
             );
         }
 
@@ -232,11 +217,6 @@ public class FilmstripItemData {
             return this;
         }
 
-        public Builder withCreationDate(Date creationDate) {
-            mCreationDate = creationDate;
-            return this;
-        }
-
         public Builder withLastModifiedDate(Date lastModifiedDate) {
             mLastModifiedDate = lastModifiedDate;
             return this;
@@ -259,11 +239,6 @@ public class FilmstripItemData {
 
         public Builder withOrientation(int orientation) {
             mOrientation = orientation;
-            return this;
-        }
-
-        public Builder withLocation(Location location) {
-            mLocation = location;
             return this;
         }
     }
