@@ -17,7 +17,6 @@
 package com.android.camera.session;
 
 import android.content.ContentResolver;
-import android.location.Location;
 import android.net.Uri;
 
 import com.android.camera.Storage;
@@ -38,7 +37,6 @@ public class StackSaverImpl implements StackSaver {
     /** The stacked images are stored in this directory. */
     private final File mStackDirectory;
     private final ContentResolver mContentResolver;
-    private final Location mGpsLocation;
 
     /**
      * Instantiate a new stack saver implementation.
@@ -51,16 +49,14 @@ public class StackSaverImpl implements StackSaver {
      *            store. TODO: Replace with a media storage storer that can be
      *            mocked out in tests.
      */
-    public StackSaverImpl(File stackDirectory, Location gpsLocation,
-            ContentResolver contentResolver) {
+    public StackSaverImpl(File stackDirectory, ContentResolver contentResolver) {
         mStackDirectory = stackDirectory;
-        mGpsLocation = gpsLocation;
         mContentResolver = contentResolver;
     }
 
     @Override
     public Uri saveStackedImage(File inputImagePath, String title, int width, int height,
-            int imageOrientation, long captureTimeEpoch, String mimeType) {
+            int imageOrientation, String mimeType) {
         String filePath =
                 Storage.generateFilepath(mStackDirectory.getAbsolutePath(), title, mimeType);
         Log.d(TAG, "Saving using stack image saver: " + filePath);
@@ -69,8 +65,7 @@ public class StackSaverImpl implements StackSaver {
         if (Storage.renameFile(inputImagePath, outputImagePath)) {
             long fileLength = outputImagePath.length();
             if (fileLength > 0) {
-                return Storage.addImageToMediaStore(mContentResolver, title, captureTimeEpoch,
-                        mGpsLocation, imageOrientation, fileLength, filePath, width, height,
+                return Storage.addImageToMediaStore(mContentResolver, title, imageOrientation, fileLength, filePath, width, height,
                         mimeType);
             }
         }

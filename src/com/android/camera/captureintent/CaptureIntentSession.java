@@ -52,8 +52,6 @@ public class CaptureIntentSession implements CaptureSession {
     private final SessionNotifier mSessionNotifier;
     /** The title of the item being processed. */
     private final String mTitle;
-    /** The location this session was created at. Used for media store. */
-    private Location mLocation;
     /** Whether one of start methods are called. */
     private boolean isStarted;
 
@@ -65,10 +63,8 @@ public class CaptureIntentSession implements CaptureSession {
      * @param captureSessionManager the capture session manager responsible for
      *            this session.
      */
-    public CaptureIntentSession(String title, Location location,
-            CaptureSessionManager captureSessionManager, SessionNotifier sessionNotifier) {
+    public CaptureIntentSession(String title, CaptureSessionManager captureSessionManager, SessionNotifier sessionNotifier) {
         mTitle = title;
-        mLocation = location;
         mSessionManager = captureSessionManager;
         mSessionNotifier = sessionNotifier;
         isStarted = false;

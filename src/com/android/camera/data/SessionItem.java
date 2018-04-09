@@ -71,7 +71,6 @@ public class SessionItem implements FilmstripItem {
 
         Date creationDate = new Date();
         mData = new FilmstripItemData.Builder(uri)
-              .withCreationDate(creationDate)
               .withLastModifiedDate(creationDate)
               .withDimensions(dimension)
               .build();

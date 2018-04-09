@@ -21,7 +21,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -132,10 +131,9 @@ public class PlaceholderManager {
      * @param mimeType the mime type of the image
      * @return The content URI of the new media item.
      */
-    public Uri finishPlaceholder(Placeholder placeholder, Location location, int orientation,
-            ExifInterface exif, byte[] jpeg, int width, int height, String mimeType) throws IOException {
+    public Uri finishPlaceholder(Placeholder placeholder, int orientation, ExifInterface exif, byte[] jpeg, int width, int height, String mimeType) throws IOException {
         Uri resultUri = Storage.updateImage(placeholder.outputUri, mContext.getContentResolver(),
-                placeholder.outputTitle, placeholder.time, location, orientation, exif, jpeg, width,
+                placeholder.outputTitle, orientation, exif, jpeg, width,
                 height, mimeType);
         CameraUtil.broadcastNewPicture(mContext, resultUri);
         return resultUri;

@@ -17,7 +17,6 @@
 package com.android.camera.session;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.net.Uri;
 
 import com.android.camera.exif.ExifInterface;
@@ -115,12 +114,6 @@ public interface CaptureSession {
 
     /** Returns the title/name of this session. */
     public String getTitle();
-
-    /** Returns the location of this session or null. */
-    public Location getLocation();
-
-    /** Sets the location of this session. */
-    public void setLocation(Location location);
 
     /**
      * Set the progress in percent for the current session. If set to or left at

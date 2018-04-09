@@ -17,7 +17,6 @@
 package com.android.camera.one;
 
 import android.content.Context;
-import android.location.Location;
 import android.net.Uri;
 import android.view.Surface;
 
@@ -269,17 +268,13 @@ public interface OneCamera {
         /** The device orientation so we can compute the right JPEG rotation. */
         public final int orientation;
 
-        /** The location of this capture. */
-        public final Location location;
-
         /** Set this to provide a debug folder for this capture. */
         public final File debugDataFolder;
 
-        public CaptureParameters(String title, int orientation, Location location, File
+        public CaptureParameters(String title, int orientation, File
                 debugDataFolder) {
             this.title = title;
             this.orientation = orientation;
-            this.location = location;
             this.debugDataFolder = debugDataFolder;
         }
     }
@@ -336,10 +331,10 @@ public interface OneCamera {
         /** Timer duration in seconds or 0 for no timer. */
         public final float timerSeconds;
 
-        public PhotoCaptureParameters(String title, int orientation, Location location, File
+        public PhotoCaptureParameters(String title, int orientation, File
                 debugDataFolder, PictureCallback callback, PictureSaverCallback saverCallback,
                 int heading, float zoom, float timerSeconds) {
-            super(title, orientation, location, debugDataFolder);
+            super(title, orientation, debugDataFolder);
             this.callback = callback;
             this.saverCallback = saverCallback;
             this.heading = heading;

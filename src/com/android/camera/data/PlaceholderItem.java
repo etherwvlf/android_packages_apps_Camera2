@@ -51,7 +51,6 @@ public class PlaceholderItem implements FilmstripItem {
         mView = v;
         mItemViewType = viewType;
         Size dimensions = new Size(width, height);
-        Date creationDate = new Date(0);
         Date lastModifiedDate = new Date(0);
         mMetaData = new Metadata();
         mMetaData.setLoaded(true);
@@ -64,7 +63,6 @@ public class PlaceholderItem implements FilmstripItem {
               -1,
               uuid,
               "",
-              creationDate,
               lastModifiedDate,
               "" /* path */,
               uri,

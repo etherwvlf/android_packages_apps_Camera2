@@ -18,7 +18,6 @@ package com.android.camera.session;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -71,8 +70,6 @@ public class CaptureSessionImpl implements CaptureSession {
     private final StackSaver mStackSaver;
     /** A URI of the item being processed. */
     private Uri mUri;
-    /** The location this session was created at. Used for media store. */
-    private Location mLocation;
     /** The current progress of this session in percent. */
     private int mProgressPercent = 0;
     /** A message ID for the current progress state. */
@@ -105,12 +102,11 @@ public class CaptureSessionImpl implements CaptureSession {
      *            session.
      */
     /* package */CaptureSessionImpl(String title,
-            long sessionStartMillis, Location location, TemporarySessionFile temporarySessionFile,
+            long sessionStartMillis, TemporarySessionFile temporarySessionFile,
             CaptureSessionManager captureSessionManager, SessionNotifier sessionNotifier,
             PlaceholderManager placeholderManager, MediaSaver mediaSaver, StackSaver stackSaver) {
         mTitle = title;
         mSessionStartMillis = sessionStartMillis;
-        mLocation = location;
         mTempOutputFile = temporarySessionFile;
         mSessionManager = captureSessionManager;
         mSessionNotifier = sessionNotifier;
@@ -128,16 +124,6 @@ public class CaptureSessionImpl implements CaptureSession {
     @Override
     public String getTitle() {
         return mTitle;
-    }
-
-    @Override
-    public Location getLocation() {
-        return mLocation;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        mLocation = location;
     }
 
     @Override
@@ -306,7 +292,7 @@ public class CaptureSessionImpl implements CaptureSession {
         if (mPlaceHolder == null) {
 
             mMediaSaver.addImage(
-                    data, mTitle, mSessionStartMillis, mLocation, width, height,
+                    data, mTitle, mSessionStartMillis, width, height,
                     orientation, exif, new MediaSaver.OnMediaSavedListener() {
                         @Override
                         public void onMediaSaved(Uri uri) {
@@ -319,8 +305,7 @@ public class CaptureSessionImpl implements CaptureSession {
                     });
         } else {
             try {
-                mContentUri = mPlaceholderManager.finishPlaceholder(mPlaceHolder, mLocation,
-                        orientation, exif, data, width, height, FilmstripItemData.MIME_TYPE_JPEG);
+                mContentUri = mPlaceholderManager.finishPlaceholder(mPlaceHolder, orientation, exif, data, width, height, FilmstripItemData.MIME_TYPE_JPEG);
                 mSessionNotifier.notifyTaskDone(mUri);
                 futureResult.set(Optional.fromNullable(mUri));
 

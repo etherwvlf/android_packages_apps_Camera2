@@ -17,7 +17,6 @@
 package com.android.camera.session;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.net.Uri;
 
 import java.io.File;
@@ -93,7 +92,7 @@ public interface CaptureSessionManager {
      * @param sessionStartMillis the start time of the new session (millis since epoch).
      * @param location the location of the new session.
      */
-    public CaptureSession createNewSession(String title, long sessionStartMillis, Location location);
+    public CaptureSession createNewSession(String title, long sessionStartMillis);
 
     /**
      * Returns a session by session Uri or null if it is not found.

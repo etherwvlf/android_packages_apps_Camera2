@@ -552,7 +552,6 @@ public class CaptureModule extends CameraModule implements
      */
     private CaptureSession createAndStartCaptureSession() {
         long sessionTime = getSessionTime();
-        Location location = mLocationManager.getCurrentLocation();
         String title = CameraUtil.instance().createJpegName(sessionTime);
         CaptureSession session = getServices().getCaptureSessionManager()
                 .createNewSession(title, sessionTime);
@@ -564,7 +563,6 @@ public class CaptureModule extends CameraModule implements
 
     private CaptureSession createAndStartUntrackedCaptureSession() {
         long sessionTime = getSessionTime();
-        Location location = mLocationManager.getCurrentLocation();
         String title = CameraUtil.instance().createJpegName(sessionTime);
         CaptureSession session = getServices().getCaptureSessionManager()
               .createNewSession(title, sessionTime);

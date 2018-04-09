@@ -36,9 +36,7 @@ public class VideoDataFactory {
         long id = c.getLong(VideoDataQuery.COL_ID);
         String title = c.getString(VideoDataQuery.COL_TITLE);
         String mimeType = c.getString(VideoDataQuery.COL_MIME_TYPE);
-        long creationDateInMilliSeconds = c.getLong(VideoDataQuery.COL_DATE_TAKEN);
         long lastModifiedDateInSeconds = c.getLong(VideoDataQuery.COL_DATE_MODIFIED);
-        Date creationDate = new Date(creationDateInMilliSeconds);
         Date lastModifiedDate = new Date(lastModifiedDateInSeconds * 1000);
 
         String filePath = c.getString(VideoDataQuery.COL_DATA);
@@ -65,10 +63,7 @@ public class VideoDataFactory {
         }
 
         long sizeInBytes = c.getLong(VideoDataQuery.COL_SIZE);
-        double latitude = c.getDouble(VideoDataQuery.COL_LATITUDE);
-        double longitude = c.getDouble(VideoDataQuery.COL_LONGITUDE);
         long videoDurationMillis = c.getLong(VideoDataQuery.COL_DURATION);
-        Location location = Location.from(latitude, longitude);
 
         Uri uri = VideoDataQuery.CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
 
@@ -76,14 +71,12 @@ public class VideoDataFactory {
               id,
               title,
               mimeType,
-              creationDate,
               lastModifiedDate,
               filePath,
               uri,
               dimensions,
               sizeInBytes,
               0 /* orientation */,
-              location,
               videoDurationMillis);
     }
 }

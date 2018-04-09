@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.SurfaceTexture;
-import android.location.Location;
 import android.media.CameraProfile;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -856,11 +855,6 @@ public class PhotoModule
 
     private final class JpegPictureCallback
             implements CameraPictureCallback {
-        Location mLocation;
-
-        public JpegPictureCallback(Location loc) {
-            mLocation = loc;
-        }
 
         @Override
         public void onPictureTaken(final byte[] originalJpegData, final CameraProxy camera) {
@@ -1001,7 +995,7 @@ public class PhotoModule
                         exif.setTag(directionTag);
                     }
                     getServices().getMediaSaver().addImage(
-                            jpegData, title, date, mLocation, width, height,
+                            jpegData, title, width, height,
                             orientation, exif, mOnMediaSavedListener);
                 }
                 // Animate capture with real jpeg data instead of a preview
@@ -1131,10 +1125,6 @@ public class PhotoModule
             animateAfterShutter();
         }
 
-        Location loc = mActivity.getLocationManager().getCurrentLocation();
-        CameraUtil.setGpsParameters(mCameraSettings, loc);
-        mCameraDevice.applySettings(mCameraSettings);
-
         // Set JPEG orientation. Even if screen UI is locked in portrait, camera orientation should
         // still match device orientation (e.g., users should always get landscape photos while
         // capturing by putting device in landscape.)
@@ -1150,7 +1140,6 @@ public class PhotoModule
         mCameraDevice.takePicture(mHandler,
                 new ShutterCallback(!animateBefore),
                 mRawPictureCallback, mPostViewPictureCallback,
-                new JpegPictureCallback(loc));
 
         mNamedImages.nameNewImage(mCaptureStartTime);
 

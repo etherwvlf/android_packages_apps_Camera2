@@ -35,7 +35,6 @@ public class PhotoDataFactory {
         String mimeType = c.getString(PhotoDataQuery.COL_MIME_TYPE);
         long dateTakenInMilliSeconds = c.getLong(PhotoDataQuery.COL_DATE_TAKEN);
         long dateModifiedInSeconds = c.getLong(PhotoDataQuery.COL_DATE_MODIFIED);
-        Date creationDate = new Date(dateTakenInMilliSeconds);
         Date lastModifiedDate = new Date(dateModifiedInSeconds * 1000);
 
         String filePath = c.getString(PhotoDataQuery.COL_DATA);
@@ -73,14 +72,12 @@ public class PhotoDataFactory {
               id,
               title,
               mimeType,
-              creationDate,
               lastModifiedDate,
               filePath,
               uri,
               dimensions,
               sizeInBytes,
-              orientation,
-              location);
+              orientation);
     }
 
     /**

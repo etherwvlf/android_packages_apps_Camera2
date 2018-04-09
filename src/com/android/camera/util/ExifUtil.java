@@ -17,7 +17,6 @@
 package com.android.camera.util;
 
 import android.hardware.camera2.CaptureResult;
-import android.location.Location;
 import android.os.Build;
 
 import com.android.camera.exif.ExifInterface;

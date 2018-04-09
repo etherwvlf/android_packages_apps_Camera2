@@ -28,12 +28,10 @@ import java.util.Date;
 public class VideoItemData extends FilmstripItemData {
     private long mVideoDurationMillis;
 
-    public VideoItemData(long contentId, String title, String mimeType, Date creationDate,
-          Date lastModifiedDate, String filePath, Uri uri,
-          Size dimensions, long sizeInBytes, int orientation,
-          Location location, long videoDurationMillis) {
-        super(contentId, title, mimeType, creationDate, lastModifiedDate, filePath, uri, dimensions,
-              sizeInBytes, orientation, location);
+    public VideoItemData(long contentId, String title, String mimeType, Date lastModifiedDate, String filePath, Uri uri,
+          Size dimensions, long sizeInBytes, int orientation, long videoDurationMillis) {
+        super(contentId, title, mimeType, lastModifiedDate, filePath, uri, dimensions,
+              sizeInBytes, orientation);
         mVideoDurationMillis = videoDurationMillis;
     }
 

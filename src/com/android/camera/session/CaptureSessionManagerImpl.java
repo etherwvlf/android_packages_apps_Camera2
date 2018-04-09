@@ -17,7 +17,6 @@
 package com.android.camera.session;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.net.Uri;
 
 import com.android.camera.async.MainThread;
@@ -276,9 +275,8 @@ public class CaptureSessionManagerImpl implements CaptureSessionManager {
     }
 
     @Override
-    public CaptureSession createNewSession(String title, long sessionStartMillis, Location location) {
-        return mSessionFactory.createNewSession(this, mSessionNotifier, title, sessionStartMillis,
-                location);
+    public CaptureSession createNewSession(String title, long sessionStartMillis) {
+        return mSessionFactory.createNewSession(this, mSessionNotifier, title, sessionStartMillis);
     }
 
     @Override

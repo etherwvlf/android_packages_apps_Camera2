@@ -1939,11 +1939,11 @@ public class VideoModule extends CameraModule
             Log.i(TAG, "Video snapshot taken.");
             mSnapshotInProgress = false;
             showVideoSnapshotUI(false);
-            storeImage(jpegData, mLocation);
+            storeImage(jpegData);
         }
     }
 
-    private void storeImage(final byte[] data, Location loc) {
+    private void storeImage(final byte[] data) {
         long dateTaken = System.currentTimeMillis();
         String title = CameraUtil.instance().createJpegName(dateTaken);
         ExifInterface exif = Exif.getExif(data);

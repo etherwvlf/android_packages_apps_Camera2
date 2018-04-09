@@ -17,7 +17,6 @@
 package com.android.camera.session;
 
 import android.content.ContentResolver;
-import android.location.Location;
 
 import java.io.File;
 
@@ -49,7 +48,7 @@ public class StackSaverFactory {
      *            created at.
      * @return A StackSaver that is set up to save images in a stacked location.
      */
-    public StackSaver create(String mTitle, Location location) {
-        return new StackSaverImpl(new File(mCameraDirectory, mTitle), location, mContentResolver);
+    public StackSaver create(String mTitle) {
+        return new StackSaverImpl(new File(mCameraDirectory, mTitle), mContentResolver);
     }
 }

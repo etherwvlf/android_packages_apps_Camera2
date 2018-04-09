@@ -36,7 +36,6 @@ public class FilmstripItemData {
     private final long mContentId;
     private final String mTitle;
     private final String mMimeType;
-    private final Date mCreationDate;
     private final Date mLastModifiedDate;
     private final String mFilePath;
     private final Uri mUri;
@@ -49,7 +48,6 @@ public class FilmstripItemData {
           long contentId,
           String title,
           String mimeType,
-          Date creationDate,
           Date lastModifiedDate,
           String filePath,
           Uri uri,
@@ -60,7 +58,6 @@ public class FilmstripItemData {
         mContentId = contentId;
         mTitle = title;
         mMimeType = mimeType;
-        mCreationDate = creationDate;
         mLastModifiedDate = lastModifiedDate;
         mFilePath = filePath;
         mUri = uri;
@@ -157,8 +154,6 @@ public class FilmstripItemData {
         sb.append(mTitle);
         sb.append(",mimeType:");
         sb.append(mMimeType);
-        sb.append(",creationDate:");
-        sb.append(mCreationDate);
         sb.append(",lastModifiedDate:");
         sb.append(mLastModifiedDate);
         sb.append(",filePath:");
@@ -171,8 +166,6 @@ public class FilmstripItemData {
         sb.append(mSizeInBytes);
         sb.append(",orientation:");
         sb.append(mOrientation);
-        sb.append(",location:");
-        sb.append(mLocation);
         sb.append("}");
         return sb.toString();
     }
@@ -202,14 +195,12 @@ public class FilmstripItemData {
                   mContentId,
                   mTitle,
                   mMimeType,
-                  mCreationDate,
                   mLastModifiedDate,
                   mFilePath,
                   mUri,
                   mDimensions,
                   mSizeInBytes,
                   mOrientation,
-                  mLocation
             );
         }
 
@@ -218,13 +209,11 @@ public class FilmstripItemData {
             builder.mContentId = data.getContentId();
             builder.mTitle = data.getTitle();
             builder.mMimeType = data.getMimeType();
-            builder.mCreationDate = data.getCreationDate();
             builder.mLastModifiedDate = data.getLastModifiedDate();
             builder.mFilePath = data.getFilePath();
             builder.mDimensions = data.getDimensions();
             builder.mSizeInBytes = data.getSizeInBytes();
             builder.mOrientation = data.getOrientation();
-            builder.mLocation = data.getLocation();
             return builder;
         }
 

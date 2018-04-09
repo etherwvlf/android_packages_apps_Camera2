@@ -16,8 +16,6 @@
 
 package com.android.camera.session;
 
-import android.location.Location;
-
 public interface CaptureSessionFactory {
     /**
      * Creates a new capture session.
@@ -32,5 +30,5 @@ public interface CaptureSessionFactory {
      */
     public CaptureSession createNewSession(CaptureSessionManager sessionManager,
             SessionNotifier sessionNotifier, String title,
-            long sessionStartMillis, Location location);
+            long sessionStartMillis);
 }

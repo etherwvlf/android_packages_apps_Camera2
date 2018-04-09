@@ -29,8 +29,7 @@ public class CaptureIntentSessionFactory implements CaptureSessionFactory {
 
     @Override
     public CaptureSession createNewSession(CaptureSessionManager sessionManager,
-            SessionNotifier sessionNotifier, String title, long sessionStartTime,
-            Location location) {
-        return new CaptureIntentSession(title, location, sessionManager, sessionNotifier);
+            SessionNotifier sessionNotifier, String title, long sessionStartTime) {
+        return new CaptureIntentSession(title, sessionManager, sessionNotifier);
     }
 }

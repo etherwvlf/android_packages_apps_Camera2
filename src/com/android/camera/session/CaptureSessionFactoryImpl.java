@@ -16,8 +16,6 @@
 
 package com.android.camera.session;
 
-import android.location.Location;
-
 import com.android.camera.app.MediaSaver;
 
 public class CaptureSessionFactoryImpl implements CaptureSessionFactory {
@@ -39,12 +37,11 @@ public class CaptureSessionFactoryImpl implements CaptureSessionFactory {
 
     @Override
     public CaptureSession createNewSession(CaptureSessionManager sessionManager,
-            SessionNotifier sessionNotifier, String title, long sessionStartTime,
-            Location location) {
+            SessionNotifier sessionNotifier, String title, long sessionStartTime) {
         TemporarySessionFile temporarySessionFile = new TemporarySessionFile(
                 mSessionStorageManager, TEMP_SESSIONS, title);
-        return new CaptureSessionImpl(title, sessionStartTime, location, temporarySessionFile,
+        return new CaptureSessionImpl(title, sessionStartTime, temporarySessionFile,
                 sessionManager, sessionNotifier, mPlaceholderManager, mMediaSaver,
-                mStackSaverFactory.create(title, location));
+                mStackSaverFactory.create(title));
     }
 }

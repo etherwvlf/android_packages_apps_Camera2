@@ -103,11 +103,6 @@ public abstract class FilmstripItemBase<T extends FilmstripItemData> implements 
         if (mSizeInBytes > 0) {
             mediaDetails.addDetail(MediaDetails.INDEX_SIZE, mSizeInBytes);
         }
-
-        Location location = mData.getLocation();
-        if (location != Location.UNKNOWN) {
-            mediaDetails.addDetail(MediaDetails.INDEX_LOCATION, location.getLocationString());
-        }
         return Optional.of(mediaDetails);
     }
 
