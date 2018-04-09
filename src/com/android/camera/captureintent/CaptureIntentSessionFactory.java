@@ -16,8 +16,6 @@
 
 package com.android.camera.captureintent;
 
-import android.location.Location;
-
 import com.android.camera.session.CaptureSession;
 import com.android.camera.session.CaptureSessionFactory;
 import com.android.camera.session.CaptureSessionManager;
