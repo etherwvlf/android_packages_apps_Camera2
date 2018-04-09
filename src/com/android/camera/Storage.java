@@ -95,11 +95,11 @@ public class Storage {
      * @param height The height of the media file after the orientation is
      *               applied.
      */
-    public static Uri addImage(ContentResolver resolver, String title, long date,
-            Location location, int orientation, ExifInterface exif, byte[] jpeg, int width,
+    public static Uri addImage(ContentResolver resolver, String title,
+                               int orientation, ExifInterface exif, byte[] jpeg, int width,
             int height) throws IOException {
 
-        return addImage(resolver, title, date, location, orientation, exif, jpeg, width, height,
+        return addImage(resolver, title, orientation, exif, jpeg, width, height,
               FilmstripItemData.MIME_TYPE_JPEG);
     }
 
@@ -124,14 +124,13 @@ public class Storage {
      * @return The URI of the added image, or null if the image could not be
      *         added.
      */
-    public static Uri addImage(ContentResolver resolver, String title, long date,
-            Location location, int orientation, ExifInterface exif, byte[] data, int width,
+    public static Uri addImage(ContentResolver resolver, String title, int orientation, ExifInterface exif, byte[] data, int width,
             int height, String mimeType) throws IOException {
 
         String path = generateFilepath(title, mimeType);
         long fileLength = writeFile(path, data, exif);
         if (fileLength >= 0) {
-            return addImageToMediaStore(resolver, title, date, location, orientation, fileLength,
+            return addImageToMediaStore(resolver, title, orientation, fileLength,
                     path, width, height, mimeType);
         }
         return null;
@@ -153,12 +152,11 @@ public class Storage {
      * @return The content URI of the inserted media file or null, if the image
      *         could not be added.
      */
-    public static Uri addImageToMediaStore(ContentResolver resolver, String title, long date,
-            Location location, int orientation, long jpegLength, String path, int width, int height,
+    public static Uri addImageToMediaStore(ContentResolver resolver, String title, int orientation, long jpegLength, String path, int width, int height,
             String mimeType) {
         // Insert into MediaStore.
         ContentValues values =
-                getContentValuesForData(title, date, location, orientation, jpegLength, path, width,
+                getContentValuesForData(title, orientation, jpegLength, path, width,
                         height, mimeType);
 
         Uri uri = null;
@@ -176,8 +174,7 @@ public class Storage {
     }
 
     // Get a ContentValues object for the given photo data
-    public static ContentValues getContentValuesForData(String title,
-            long date, Location location, int orientation, long jpegLength,
+    public static ContentValues getContentValuesForData(String title, int orientation, long jpegLength,
             String path, int width, int height, String mimeType) {
 
         File file = new File(path);
@@ -186,7 +183,7 @@ public class Storage {
         ContentValues values = new ContentValues(11);
         values.put(ImageColumns.TITLE, title);
         values.put(ImageColumns.DISPLAY_NAME, title + JPEG_POSTFIX);
-        values.put(ImageColumns.DATE_TAKEN, date);
+        values.put(ImageColumns.DATE_TAKEN, "0");
         values.put(ImageColumns.MIME_TYPE, mimeType);
         values.put(ImageColumns.DATE_MODIFIED, dateModifiedSeconds);
         // Clockwise rotation in degrees. 0, 90, 180, or 270.
@@ -197,8 +194,8 @@ public class Storage {
         setImageSize(values, width, height);
 
         if (location != null) {
-            values.put(ImageColumns.LATITUDE, location.getLatitude());
-            values.put(ImageColumns.LONGITUDE, location.getLongitude());
+            values.put(ImageColumns.LATITUDE, "0");
+            values.put(ImageColumns.LONGITUDE, "0");
         }
         return values;
     }
@@ -273,12 +270,11 @@ public class Storage {
      * @param mimeType of the image
      * @return The content uri of the newly inserted or replaced item.
      */
-    public static Uri updateImage(Uri imageUri, ContentResolver resolver, String title, long date,
-           Location location, int orientation, ExifInterface exif,
+    public static Uri updateImage(Uri imageUri, ContentResolver resolver, String title, int orientation, ExifInterface exif,
            byte[] jpeg, int width, int height, String mimeType) throws IOException {
         String path = generateFilepath(title, mimeType);
         writeFile(path, jpeg, exif);
-        return updateImage(imageUri, resolver, title, date, location, orientation, jpeg.length, path,
+        return updateImage(imageUri, resolver, title, orientation, jpeg.length, path,
                 width, height, mimeType);
     }
 
@@ -399,19 +395,18 @@ public class Storage {
     }
 
     /** Updates the image values in MediaStore. */
-    private static Uri updateImage(Uri imageUri, ContentResolver resolver, String title,
-            long date, Location location, int orientation, int jpegLength,
+    private static Uri updateImage(Uri imageUri, ContentResolver resolver, String title, int orientation, int jpegLength,
             String path, int width, int height, String mimeType) {
 
         ContentValues values =
-                getContentValuesForData(title, date, location, orientation, jpegLength, path,
+                getContentValuesForData(title, orientation, jpegLength, path,
                         width, height, mimeType);
 
 
         Uri resultUri = imageUri;
         if (Storage.isSessionUri(imageUri)) {
             // If this is a session uri, then we need to add the image
-            resultUri = addImageToMediaStore(resolver, title, date, location, orientation,
+            resultUri = addImageToMediaStore(resolver, title, orientation,
                     jpegLength, path, width, height, mimeType);
             sSessionsToContentUris.put(imageUri, resultUri);
             sContentUrisToSessions.put(resultUri, imageUri);
